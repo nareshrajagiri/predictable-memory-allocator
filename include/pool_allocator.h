@@ -12,6 +12,7 @@ typedef struct free_block {
     struct free_block* next;
 } free_block_t;
 
+
 /* Memory pool structure */
 typedef struct memory_pool {
     void*         pool_start;
@@ -20,5 +21,9 @@ typedef struct memory_pool {
 
 /* Initialize the memory pool */
 int pool_init(memory_pool_t* pool);
+/* Allocate one fixed-size block from the pool */
+void* pool_alloc(memory_pool_t* pool);
+
+
 
 #endif /* POOL_ALLOCATOR_H */

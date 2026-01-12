@@ -6,6 +6,7 @@
 
 int pool_init(memory_pool_t* pool)
 {
+
     assert(pool != NULL);
 
     size_t total_size = POOL_BLOCK_SIZE * POOL_BLOCK_COUNT;
@@ -37,3 +38,24 @@ int pool_init(memory_pool_t* pool)
 
     return 0;
 }
+
+void* pool_alloc(memory_pool_t* pool)
+{
+    assert(pool != NULL);
+
+    /* If no free blocks remain */
+    if (pool->free_list == NULL) {
+        return NULL;
+    }
+
+    /* Take the first free block */
+    free_block_t* block = pool->free_list;
+
+    /* Advance free list head */
+    pool->free_list = block->next;
+
+    /* Return block to caller */
+    return (void*)block;
+}
+
+
