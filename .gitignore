@@ -1,0 +1,10 @@
+# Build artifacts
+test_init
+*.o
+
+# Editor files
+.vscode/
+*.swp
+
+# OS files
+.DS_Store
