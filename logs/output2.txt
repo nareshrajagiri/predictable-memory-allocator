@@ -1,0 +1,10 @@
+Test: pool_alloc()
+
+Allocated block 1: 0x565cfc6412a0
+Allocated block 2: 0x565cfc6412e0
+Free list head:    0x565cfc641320
+
+Validation:
+- Block spacing = 64 bytes
+- Free list advances correctly
+- Allocation is deterministic
