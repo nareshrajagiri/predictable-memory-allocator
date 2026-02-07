@@ -1,4 +1,4 @@
-# Pool start
+Test : pool_init()
 
 Pool initialized successfully
 Pool start address: 0x595848c792a0

@@ -1,5 +1,9 @@
 # Commit 3: pool_free()
 
+```
+Freeing is where most allocator bugs occur, so I added strict pointer range and alignment checks in debug builds and validated reuse behavior before moving forward.
+```
+
 ## Goal
 Introduce safe block deallocation while preserving free list integrity.
 

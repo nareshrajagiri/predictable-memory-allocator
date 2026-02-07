@@ -1,0 +1,12 @@
+Test: Pool exhaustion and recovery
+
+All 1024 blocks allocated successfully
+Allocation correctly returned NULL after exhaustion
+Freed one block
+Allocation succeeded after free: 0x6502f6ebd2a0
+
+Validation:
+- Pool exhaustion handled deterministically
+- Allocation returns NULL when exhausted
+- Free after exhaustion restores allocator functionality
+- Free list integrity preserved
