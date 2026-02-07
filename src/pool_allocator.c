@@ -58,4 +58,23 @@ void* pool_alloc(memory_pool_t* pool)
     return (void*)block;
 }
 
+void pool_free(memory_pool_t* pool ,void* ptr)
+{
+    assert(pool != NULL);
+    assert(ptr != NULL);
+    uint8_t* pool_start = (uint8_t*)pool->pool_start;
+    uint8_t* pool_end = pool_start + (POOL_BLOCK_SIZE * POOL_BLOCK_COUNT);
+
+    uint8_t* p = (uint8_t*)ptr;
+
+    /* Debug-time pointer validation */
+    assert(p >= pool_start && p < pool_end);
+    assert(((uintptr_t)(p - pool_start) % POOL_BLOCK_SIZE) == 0);
+
+      /* Push block back to free list */
+    free_block_t* block = (free_block_t*)ptr;
+    block->next = pool->free_list;
+    pool->free_list = block;
+}
+
 

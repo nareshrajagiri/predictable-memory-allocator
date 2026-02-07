@@ -21,8 +21,13 @@ typedef struct memory_pool {
 
 /* Initialize the memory pool */
 int pool_init(memory_pool_t* pool);
+
 /* Allocate one fixed-size block from the pool */
 void* pool_alloc(memory_pool_t* pool);
+
+/* Free a previously allocated block back to the pool */
+void pool_free(memory_pool_t* pool, void* ptr);
+
 
 
 

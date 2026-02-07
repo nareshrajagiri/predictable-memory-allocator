@@ -13,9 +13,14 @@ int main(void)
     void* p1 = pool_alloc(&pool);
     void* p2 = pool_alloc(&pool);
 
-    printf("Allocated block 1: %p\n", p1);
-    printf("Allocated block 2: %p\n", p2);
-    printf("Free list head:    %p\n", (void*)pool.free_list);
+    printf("Allocated p1: %p\n", p1);
+    printf("Allocated p2: %p\n", p2);
+
+    pool_free(&pool, p1);
+    printf("Freed p1\n");
+
+    void* p3 = pool_alloc(&pool);
+    printf("Allocated p3: %p\n", p3);
 
     return 0;
 }

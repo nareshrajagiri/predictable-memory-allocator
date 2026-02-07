@@ -1,0 +1,13 @@
+
+Test: pool_free()
+
+Allocated p1: 0x640f49f912a0
+Allocated p2: 0x640f49f912e0
+Freed p1
+Allocated p3: 0x640f49f912a0
+
+
+Validation:
+- Freed block reused correctly
+- Free list LIFO behavior confirmed
+- Pointer validation enforced
