@@ -1,0 +1,17 @@
+Test: Behavioral comparison between malloc/free and pool allocator
+
+=== malloc/free behavior ===
+malloc allocated 1024 blocks
+malloc/free cycle completed
+
+=== pool allocator behavior ===
+pool_alloc allocated 1024 blocks
+pool_alloc returned NULL after exhaustion (expected)
+pool_alloc/free cycle completed
+
+Observations:
+- malloc allocation success depends on system memory availability
+- malloc does not expose a deterministic exhaustion boundary
+- pool allocator enforces a fixed upper bound on allocations
+- pool allocator fails deterministically after pool exhaustion
+- pool allocator recovers correctly after free

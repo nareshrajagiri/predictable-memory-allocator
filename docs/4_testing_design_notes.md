@@ -1,7 +1,7 @@
 # Commit 4: Pool Exhaustion Behavior and Correctness Tests
 
 ```
-I explicitly tested allocator exhaustion and verified deterministic failure and recovery without modifying allocator logic.
+Explicitly tested allocator exhaustion and verified deterministic failure and recovery without modifying allocator logic.
 ```
 
 ## Goal
