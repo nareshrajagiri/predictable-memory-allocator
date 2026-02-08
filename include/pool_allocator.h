@@ -17,6 +17,12 @@ typedef struct free_block {
 typedef struct memory_pool {
     void*         pool_start;
     free_block_t* free_list;
+
+     /* Observability counters */
+    size_t current_allocated;
+    size_t total_alloc_calls;
+    size_t high_watermark;
+
 } memory_pool_t;
 
 /* Initialize the memory pool */

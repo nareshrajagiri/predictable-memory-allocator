@@ -35,6 +35,12 @@ int pool_init(memory_pool_t* pool)
     free_block_t* last =
         (free_block_t*)(base + (POOL_BLOCK_COUNT - 1) * POOL_BLOCK_SIZE);
     last->next = NULL;
+    
+    // allocation counters
+    pool->current_allocated = 0;
+    pool->total_alloc_calls = 0;
+    pool->high_watermark = 0;
+
 
     return 0;
 }
@@ -53,6 +59,15 @@ void* pool_alloc(memory_pool_t* pool)
 
     /* Advance free list head */
     pool->free_list = block->next;
+
+
+    /* Update counters */
+    pool->current_allocated++;
+    pool->total_alloc_calls++;
+
+    if (pool->current_allocated > pool->high_watermark) {
+        pool->high_watermark = pool->current_allocated;
+    }
 
     /* Return block to caller */
     return (void*)block;
@@ -85,6 +100,10 @@ void pool_free(memory_pool_t* pool ,void* ptr)
     free_block_t* block = (free_block_t*)ptr;
     block->next = pool->free_list;
     pool->free_list = block;
+
+    assert(pool->current_allocated > 0);
+    pool->current_allocated--;
+
 }
 
 

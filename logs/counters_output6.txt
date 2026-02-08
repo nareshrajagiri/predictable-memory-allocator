@@ -1,0 +1,26 @@
+Test: Allocation counters and observability
+
+Initial state:
+  current_allocated = 0
+  total_alloc_calls = 0
+  high_watermark    = 0
+
+After 2 allocations:
+  current_allocated = 2
+  total_alloc_calls = 2
+  high_watermark    = 2
+
+After freeing 1 block:
+  current_allocated = 1
+  total_alloc_calls = 2
+  high_watermark    = 2
+
+After freeing all blocks:
+  current_allocated = 0
+  total_alloc_calls = 2
+  high_watermark    = 2
+
+Validation:
+- Counters updated correctly on allocation and free
+- High watermark reflects peak usage
+- No leaks or counter inconsistencies observed

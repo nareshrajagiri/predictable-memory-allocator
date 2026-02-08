@@ -1,5 +1,9 @@
 # Commit 5: Debug-only Double-Free Detection
 
+```
+I added debug-only double-free detection by scanning the free list and asserting on misuse. This prevents silent allocator corruption during development without impacting release performance.
+```
+
 ## Goal
 Detect double-free bugs during development without adding runtime overhead
 to release builds.

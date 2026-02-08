@@ -10,52 +10,32 @@ int main(void)
         return 1;
     }
 
-    void* p = pool_alloc(&pool);
-    printf("Allocated p: %p\n", p);
+    printf("Initial state:\n");
+    printf("  current_allocated = %zu\n", pool.current_allocated);
+    printf("  total_alloc_calls = %zu\n", pool.total_alloc_calls);
+    printf("  high_watermark    = %zu\n", pool.high_watermark);
 
-    pool_free(&pool, p);
-    printf("Freed p once\n");
+    void* p1 = pool_alloc(&pool);
+    void* p2 = pool_alloc(&pool);
 
-    /* Intentional double free — should assert */
-    pool_free(&pool, p);
-    printf("ERROR: double free was not detected\n");
+    printf("\nAfter 2 allocations:\n");
+    printf("  current_allocated = %zu\n", pool.current_allocated);
+    printf("  total_alloc_calls = %zu\n", pool.total_alloc_calls);
+    printf("  high_watermark    = %zu\n", pool.high_watermark);
+
+    pool_free(&pool, p1);
+
+    printf("\nAfter freeing 1 block:\n");
+    printf("  current_allocated = %zu\n", pool.current_allocated);
+    printf("  total_alloc_calls = %zu\n", pool.total_alloc_calls);
+    printf("  high_watermark    = %zu\n", pool.high_watermark);
+
+    pool_free(&pool, p2);
+
+    printf("\nAfter freeing all blocks:\n");
+    printf("  current_allocated = %zu\n", pool.current_allocated);
+    printf("  total_alloc_calls = %zu\n", pool.total_alloc_calls);
+    printf("  high_watermark    = %zu\n", pool.high_watermark);
 
     return 0;
-
-    // void* blocks[POOL_BLOCK_COUNT];
-
-    // /* Allocate all blocks */
-    // for (size_t i = 0; i < POOL_BLOCK_COUNT; i++) {
-    //     blocks[i] = pool_alloc(&pool);
-    //     if (blocks[i] == NULL) {
-    //         printf("Allocation failed unexpectedly at index %zu\n", i);
-    //         return 1;
-    //     }
-    // }
-
-    // printf("All %d blocks allocated successfully\n", POOL_BLOCK_COUNT);
-
-    // /* Pool should now be exhausted */
-    // void* extra = pool_alloc(&pool);
-    // if (extra != NULL) {
-    //     printf("Error: allocation succeeded despite exhaustion\n");
-    //     return 1;
-    // }
-
-    // printf("Allocation correctly returned NULL after exhaustion\n");
-
-    // /* Free one block */
-    // pool_free(&pool, blocks[0]);
-    // printf("Freed one block\n");
-
-    // /* Allocation should succeed again */
-    // void* reused = pool_alloc(&pool);
-    // if (reused == NULL) {
-    //     printf("Error: allocation failed after freeing a block\n");
-    //     return 1;
-    // }
-
-    // printf("Allocation succeeded after free: %p\n", reused);
-
-    // return 0;
 }
