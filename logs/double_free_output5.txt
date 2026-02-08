@@ -1,0 +1,12 @@
+Test: Debug-only double-free detection
+
+Allocated p: 0x61340a0372a0
+Freed p once
+Assertion failed during second free:
+Assertion `iter != (free_block_t*)ptr' failed.
+Program aborted as expected.
+
+Validation:
+- First free succeeds normally
+- Second free is detected correctly
+- Allocator fails fast without corrupting free list

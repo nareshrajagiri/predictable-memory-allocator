@@ -71,6 +71,16 @@ void pool_free(memory_pool_t* pool ,void* ptr)
     assert(p >= pool_start && p < pool_end);
     assert(((uintptr_t)(p - pool_start) % POOL_BLOCK_SIZE) == 0);
 
+
+#ifndef NDEBUG
+    /* Debug-only double-free detection */
+    free_block_t* iter = pool->free_list;
+    while (iter != NULL) {
+        assert(iter != (free_block_t*)ptr);
+        iter = iter->next;
+    }
+#endif
+
       /* Push block back to free list */
     free_block_t* block = (free_block_t*)ptr;
     block->next = pool->free_list;
